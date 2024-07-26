@@ -8896,7 +8896,7 @@ table td {
                                                                         <p role="status" aria-live="polite" aria-atomic="true"></p>
                                                                         <ul></ul>
                                                                     </div>
-                                                                    <form action="/contacts/#wpcf7-f707-p135-o1" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init">
+                                                                    <form id="contactForm" method="POST" action="https://formspree.io/f/mgvwaepy" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init">
                                                                         <div style="display: none;">
                                                                             <input type="hidden" name="_wpcf7" value="707" />
                                                                             <input type="hidden" name="_wpcf7_version" value="5.8" />
@@ -8907,33 +8907,80 @@ table td {
                                                                         </div>
                                                                         <div class="flex">
                                                                             <div class='itm row'>
-                                                                                <p><span class="wpcf7-form-control-wrap" data-name="your-name"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Enter your name*" value="" type="text" name="your-name" /></span>
+                                                                                <p>
+                                                                                    <span class="wpcf7-form-control-wrap" data-name="your-name">
+                                                                                        <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Enter your name*" type="text" name="your-name" required />
+                                                                                    </span>
                                                                                 </p>
                                                                             </div>
                                                                             <div class='itm row'>
-                                                                                <p><span class="wpcf7-form-control-wrap" data-name="email"><input size="40" class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Enter your e-mail*" value="" type="email" name="email" /></span>
+                                                                                <p>
+                                                                                    <span class="wpcf7-form-control-wrap" data-name="email">
+                                                                                        <input size="40" class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Enter your e-mail*" type="email" name="email" required />
+                                                                                    </span>
                                                                                 </p>
                                                                             </div>
                                                                             <div class='itm row'>
-                                                                                <p><span class="wpcf7-form-control-wrap" data-name="tel"><input size="40" class="wpcf7-form-control wpcf7-tel wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-tel" aria-required="true" aria-invalid="false" placeholder="Enter your telephone*" value="" type="tel" name="tel" /></span>
+                                                                                <p>
+                                                                                    <span class="wpcf7-form-control-wrap" data-name="tel">
+                                                                                        <input size="40" class="wpcf7-form-control wpcf7-tel wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-tel" aria-required="true" aria-invalid="false" placeholder="Enter your telephone*" type="tel" name="tel" required />
+                                                                                    </span>
                                                                                 </p>
                                                                             </div>
                                                                         </div>
-                                                                        <div class=''>
-                                                                            <p><span class="wpcf7-form-control-wrap" data-name="your-message"><textarea cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Enter your message*" name="your-message"></textarea></span>
+                                                                        <div>
+                                                                            <p>
+                                                                                <span class="wpcf7-form-control-wrap" data-name="your-message">
+                                                                                    <textarea cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Enter your message*" name="your-message" required></textarea>
+                                                                                </span>
                                                                             </p>
                                                                         </div>
                                                                         <div class="bt">
-                                                                            <p><input class="wpcf7-form-control wpcf7-submit has-spinner" type="submit" value="Send Message" />
+                                                                            <p>
+                                                                                <input class="wpcf7-form-control wpcf7-submit has-spinner" type="submit" value="Send Message" />
                                                                             </p>
                                                                         </div>
-                                                                        <p style="display: none !important;"><label>&#916;<textarea name="_wpcf7_ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="_wpcf7_ak_js" value="60" />
+                                                                        <p style="display: none !important;">
+                                                                            <label>&#916;<textarea name="_wpcf7_ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label>
+                                                                            <input type="hidden" id="ak_js_1" name="_wpcf7_ak_js" value="60" />
                                                                             <script>
                                                                                 document.getElementById("ak_js_1").setAttribute("value", (new Date()).getTime());
                                                                             </script>
                                                                         </p>
                                                                         <div class="wpcf7-response-output" aria-hidden="true"></div>
                                                                     </form>
+                                                                    <script>
+                                                                        document.getElementById('contactForm').addEventListener('submit', function(event) {
+                                                                            event.preventDefault();
+                                                                            
+                                                                            var form = event.target;
+                                                                            var formData = new FormData(form);
+                                                                            
+                                                                            fetch(form.action, {
+                                                                                method: form.method,
+                                                                                body: formData,
+                                                                                headers: {
+                                                                                    'Accept': 'application/json'
+                                                                                }
+                                                                            }).then(function(response) {
+                                                                                if (response.ok) {
+                                                                                    alert('Message sent successfully!');
+                                                                                    form.reset();
+                                                                                } else {
+                                                                                    return response.json().then(function(data) {
+                                                                                        if (Object.prototype.hasOwnProperty.call(data, 'errors')) {
+                                                                                            alert(data.errors.map(error => error.message).join(", "));
+                                                                                        } else {
+                                                                                            alert('Oops! There was a problem submitting your form');
+                                                                                        }
+                                                                                    });
+                                                                                }
+                                                                            }).catch(function(error) {
+                                                                                alert('Oops! There was a problem submitting your form');
+                                                                            });
+                                                                        });
+                                                                        </script>
+                                                                        
                                                                 </div>
                                                             </div>
                                                         </div>
